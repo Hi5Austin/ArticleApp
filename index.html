@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Article Suggester </title>
+  </head>
+  <body>
+    <div id='article-in'>
+      <input placeholder="name" v-model="articleName" id='articleName'></input><br>
+      <input placeholder="url"  v-model="articleUrl" id='articleUrl'></input><br>
+      <input placeholder="tags" v-model="articleTags" id='articleTags'></input><br>
+      <button v-on:click="submit" id='articleSubmit'> Submit </button>
+    </div>
+    <h2>Suggested Articles </h2>
+    <ul id='article-list'>
+      <li v-for="article in articles">
+      {{ article['nametext'] }}
+    </ul>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.12/vue.min.js'></script>
+    <script>
+    var db = []
+    var articleList = new Vue({
+      el:'#article-list',
+      data:{
+        articles:[],
+      },
+      methods:{
+        try:function(){
+          alert("passed");
+        },
+        newEntry:function(article){
+          console.log(article);
+          this.articles.push(article);
+          console.log(this.articles);
+        }
+      }
+    })
+    var articleInput = new Vue({
+      el:"#article-in",
+      data:{
+        articleName:"",
+        articleUrl:"",
+        articleTags:""
+      },
+      methods:{
+        submit:function(){
+          var name = this.articleName;
+          var url = this.articleUrl;
+          var tags = this.articleTags;
+          var article = {'nametext':name,'url':url,'tags':tags};
+          articleList.newEntry(article);
+        }
+      }
+    })
+    </script>
+  </body>
+</html>
